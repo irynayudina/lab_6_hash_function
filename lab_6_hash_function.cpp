@@ -72,11 +72,51 @@ public:
     void insert_table(int k, hashTableEntry<K, D> d) {
         lists[k].createnode(d);
     }
-    void delete_table(K k) {
-
+    void insert_table_division(K k, hashTableEntry<K, D> d) {
+        
+        lists[HashFunctionDivision(k)].createnode(d);
     }
-    List<hashTableEntry<K, D>> find(K k) {
-        return lists[0];
+    void insert_table_multiplication(K k, hashTableEntry<K, D> d) {
+        
+        lists[HashFunctionMultiplication(k)].createnode(d);
+    }
+    void insert_table_row(K k, hashTableEntry<K, D> d) {
+        lists[HashFunctionRowKeys(k)].createnode(d);
+    }
+    void delete_table(int k) {
+        if (K == int) {
+            cout << "ok" << endl;
+        }
+    }
+    void delete_table_division(K k) {
+        //HashFunctionDivision(k);
+        if (K == int) {
+            cout << "ok" << endl;
+        }
+    }
+    void delete_table_multiplication(K k) {
+        //HashFunctionMultiplication(k);
+        if (K == int) {
+            cout << "ok" << endl;
+        }
+    }
+    void delete_table_row(K k) {
+        //HashFunctionRowKeys(k);
+        if (K == int) {
+            cout << "ok" << endl;
+        }
+    }
+    List<hashTableEntry<K, D>> find(int k) {
+        return lists[k];
+    }
+    List<hashTableEntry<K, D>> find_division(K k) {
+        return lists[HashFunctionDivision(k)];
+    }
+    List<hashTableEntry<K, D>> find_multiplication(K k) {
+        return lists[HashFunctionMultiplication(k)];
+    }
+    List<hashTableEntry<K, D>> find_row(K k) {
+        return lists[HashFunctionRowKeys(k)];
     }
     void print_table() {
 
@@ -96,18 +136,56 @@ public:
      T_S = size;
      table = new  hashTableEntry<K, D>[T_S];
      }
-    void insert_table(int k, hashTableEntry<K, D> d) {
-        table[k] = d;
-    }
-    void delete_table(K k) {
+     void insert_table(int k, hashTableEntry<K, D> d) {
+         table[k] = d;
+     }
+     void insert_table_division(K k, hashTableEntry<K, D> d) {
+         table[HashFunctionDivision(k)] = d;
+     }
+     void insert_table_multiplication(K k, hashTableEntry<K, D> d) {
+         table[ashFunctionMultiplication(k)] = d;
+     }
+     void insert_table_row(K k, hashTableEntry<K, D> d) {
+         table[HashFunctionRowKeys(k)] = d;
+     }
+     void delete_table(int k) {
+         if (K == int) {
+             cout << "ok" << endl;
+         }
+     }
+     void delete_table_division(K k) {
+         //HashFunctionDivision(k);
+         if (K == int) {
+             cout << "ok" << endl;
+         }
+     }
+     void delete_table_multiplication(K k) {
+         //HashFunctionMultiplication(k);
+         if (K == int) {
+             cout << "ok" << endl;
+         }
+     }
+     void delete_table_row(K k) {
+         //HashFunctionRowKeys(k);
+         if (K == int) {
+             cout << "ok" << endl;
+         }
+     }
+     hashTableEntry<K, D> find(int k) {
+         return table[k];
+     }
+     hashTableEntry<K, D> find_division(K k) {
+         return table[HashFunctionDivision(k)];
+     }
+     hashTableEntry<K, D> find_multiplication(K k) {
+         return table[HashFunctionMultiplication(k)];
+     }
+     hashTableEntry<K, D> find_row(K k) {
+         return table[HashFunctionRowKeys(k)];
+     }
+     void print_table() {
 
-    }
-    hashTableEntry<K, D> find(K k) {
-        return table[0];
-    }
-    void print_table() {
-
-    }
+     }
     // hash functions//////////////////////////////////////////////////////////////////////////////////////////////////
     friend int HashFunctionMultiplication(int k);
     friend int HashFunctionDivision(int k);
@@ -154,6 +232,8 @@ int main()
                 {
                 case 1:
                     cout << "HashTable_open_hashing<int, int> hash_table" << endl;
+                    cout << "Division-1 or multiplication-2 method of hashing: " << endl;
+                    cin >> choise;
                     while (thpm != 5) {
                         cout << "choose the action" << endl;
                         cout << "1 - insert key-value" << endl;
@@ -170,25 +250,32 @@ int main()
                             cout << "enter value int: " << endl;
                             cin >> value;
                             hte_i_i.e_key = key; hte_i_i.e_data = value;
-                            cout << "choose 1 - division or 2 - multiplication method" << endl;
-                            cin >> choise;
                             if (choise == 1) {
-                                ind = HashFunctionDivision(key);
+                                hash_table_i_i.insert_table_division(hte_i_i.e_key, hte_i_i);
                             }
                             else if (choise == 2) {
-                                ind = HashFunctionMultiplication(key);
+                                hash_table_i_i.insert_table_multiplication(hte_i_i.e_key, hte_i_i);
                             }
-                            hash_table_i_i.insert_table(ind, hte_i_i);
                             break;
                         case 2:
                             cout << "enter key int: " << endl;
                             cin >> key;
-                            hash_table_i_i.delete_table(key);
+                            if (choise == 1) {
+                                hash_table_i_i.delete_table_division(key);
+                            }
+                            else if (choise == 2) {
+                                hash_table_i_i.delete_table_multiplication(key);
+                            }
                             break;
                         case 3:
                             cout << "enter key int: " << endl;
                             cin >> key;
-                            hash_table_i_i.find(key);
+                            if (choise == 1) {
+                                hash_table_i_i.find_division(key);
+                            }
+                            else if (choise == 2) {
+                                hash_table_i_i.find_multiplication(key);
+                            }
                             break;
                         case 4:
                             hash_table_i_i.print_table();
@@ -198,6 +285,8 @@ int main()
                     break;
                 case 2:
                     cout << "HashTable_open_hashing<int, string> hash_table" << endl;
+                    cout << "Division-1 or multiplication-2 method of hashing: " << endl;
+                    cin >> choise;
                     while (thpm != 5) {
                         cout << "choose the action" << endl;
                         cout << "1 - insert key-value" << endl;
@@ -214,25 +303,32 @@ int main()
                             cout << "enter value string: " << endl;
                             cin >> str_value;
                             hte_i_s.e_key = key; hte_i_s.e_data = str_value;
-                            cout << "choose 1 - division or 2 - multiplication method" << endl;
-                            cin >> choise;
                             if (choise == 1) {
-                                ind = HashFunctionDivision(key);
+                                hash_table_i_s.insert_table_division(hte_i_s.e_key, hte_i_s);
                             }
                             else if (choise == 2) {
-                                ind = HashFunctionMultiplication(key);
+                                hash_table_i_s.insert_table_multiplication(hte_i_s.e_key, hte_i_s);
                             }
-                            hash_table_i_s.insert_table(ind, hte_i_s);
                             break;
                         case 2:
                             cout << "enter key int: " << endl;
                             cin >> key;
-                            hash_table_i_s.delete_table(key);
+                            if (choise == 1) {
+                                hash_table_i_s.delete_table_division(key);
+                            }
+                            else if (choise == 2) {
+                                hash_table_i_s.delete_table_multiplication(key);
+                            }
                             break;
                         case 3:
                             cout << "enter key int: " << endl;
                             cin >> key;
-                            hash_table_i_s.find(key);
+                            if (choise == 1) {
+                                hash_table_i_s.find_division(key);
+                            }
+                            else if (choise == 2) {
+                                hash_table_i_s.find_multiplication(key);
+                            }
                             break;
                         case 4:
                             hash_table_i_s.print_table();
@@ -258,18 +354,17 @@ int main()
                             cout << "enter value int: " << endl;
                             cin >> value;
                             hte_s_i.e_key = str_key; hte_s_i.e_data = value;
-                            ind = HashFunctionRowKeys(str_key);
-                            hash_table_s_i.insert_table(ind, hte_s_i);
+                            hash_table_s_i.insert_table_row(hte_s_i.e_key, hte_s_i);
                             break;
                         case 2:
                             cout << "enter key string: " << endl;
                             cin >> str_key;
-                            hash_table_s_i.delete_table(str_key);
+                            hash_table_s_i.delete_table_row(str_key);
                             break;
                         case 3:
                             cout << "enter key string: " << endl;
                             cin >> str_key;
-                            hash_table_s_i.find(str_key);
+                            hash_table_s_i.find_row(str_key);
                             break;
                         case 4:
                             hash_table_s_i.print_table();
@@ -295,18 +390,17 @@ int main()
                             cout << "enter value string: " << endl;
                             cin >> str_value;
                             hte_s_s.e_key = str_key; hte_s_s.e_data = str_value;
-                            ind = HashFunctionRowKeys(str_key);
-                            hash_table_s_s.insert_table(ind, hte_s_s);
+                            hash_table_s_s.insert_table_row(hte_s_s.e_key, hte_s_s);
                             break;
                         case 2:
                             cout << "enter key string: " << endl;
                             cin >> str_key;
-                            hash_table_s_s.delete_table(str_key);
+                            hash_table_s_s.delete_table_row(str_key);
                             break;
                         case 3:
                             cout << "enter key string: " << endl;
                             cin >> str_key;
-                            hash_table_s_s.find(str_key);
+                            hash_table_s_s.find_row(str_key);
                             break;
                         case 4:
                             hash_table_s_s.print_table();
@@ -331,6 +425,8 @@ int main()
                 {
                 case 1:
                     cout << "HashTable_closed_hashing<int, int> hash_table" << endl;
+                    cout << "Division-1 or multiplication-2 method of hashing: " << endl;
+                    cin >> choise;
                     while (thpm != 5) {
                         cout << "choose the action" << endl;
                         cout << "1 - insert key-value" << endl;
@@ -347,25 +443,32 @@ int main()
                             cout << "enter value int: " << endl;
                             cin >> value;
                             hte_i_i.e_key = key; hte_i_i.e_data = value;
-                            cout << "choose 1 - division or 2 - multiplication method" << endl;
-                            cin >> choise;
                             if (choise == 1) {
-                                ind = HashFunctionDivision(key);
+                                hash_table_i_i_c.insert_table_division(hte_i_i.e_key, hte_i_i);
                             }
                             else if (choise == 2) {
-                                ind = HashFunctionMultiplication(key);
+                                hash_table_i_i_c.insert_table_multiplication(hte_i_i.e_key, hte_i_i);
                             }
-                            hash_table_i_i_c.insert_table(ind, hte_i_i);
                             break;
                         case 2:
                             cout << "enter key int: " << endl;
                             cin >> key;
-                            hash_table_i_i_c.delete_table(key);
+                            if (choise == 1) {
+                                hash_table_i_i_c.delete_table_division(key);
+                            }
+                            else if (choise == 2) {
+                                hash_table_i_i_c.delete_table_multiplication(key);
+                            }
                             break;
                         case 3:
                             cout << "enter key int: " << endl;
                             cin >> key;
-                            hash_table_i_i_c.find(key);
+                            if (choise == 1) {
+                                hash_table_i_i_c.find_division(key);
+                            }
+                            else if (choise == 2) {
+                                hash_table_i_i_c.find_multiplication(key);
+                            }
                             break;
                         case 4:
                             hash_table_i_i_c.print_table();
@@ -375,6 +478,8 @@ int main()
                     break;
                 case 2:
                     cout << "HashTable_closed_hashing<int, string> hash_table" << endl;
+                    cout << "Division-1 or multiplication-2 method of hashing: " << endl;
+                    cin >> choise;
                     while (thpm != 5) {
                         cout << "choose the action" << endl;
                         cout << "1 - insert key-value" << endl;
@@ -391,25 +496,32 @@ int main()
                             cout << "enter value string: " << endl;
                             cin >> str_value;
                             hte_i_s.e_key = key; hte_i_s.e_data = str_value;
-                            cout << "choose 1 - division or 2 - multiplication method" << endl;
-                            cin >> choise;
                             if (choise == 1) {
-                                ind = HashFunctionDivision(key);
+                                hash_table_i_s_c.insert_table_division(hte_i_s.e_key, hte_i_s);
                             }
                             else if (choise == 2) {
-                                ind = HashFunctionMultiplication(key);
+                                hash_table_i_s_c.insert_table_multiplication(hte_i_s.e_key, hte_i_s);
                             }
-                            hash_table_i_s_c.insert_table(ind, hte_i_s);
                             break;
                         case 2:
                             cout << "enter key int: " << endl;
                             cin >> key;
-                            hash_table_i_s_c.delete_table(key);
+                            if (choise == 1) {
+                                hash_table_i_s_c.delete_table_division(key);
+                            }
+                            else if (choise == 2) {
+                                hash_table_i_s_c.delete_table_multiplication(key);
+                            }
                             break;
                         case 3:
                             cout << "enter key int: " << endl;
                             cin >> key;
-                            hash_table_i_s_c.find(key);
+                            if (choise == 1) {
+                                hash_table_i_s_c.find_division(key);
+                            }
+                            else if (choise == 2) {
+                                hash_table_i_s_c.find_multiplication(key);
+                            }
                             break;
                         case 4:
                             hash_table_i_s_c.print_table();
@@ -435,18 +547,17 @@ int main()
                             cout << "enter value int: " << endl;
                             cin >> value;
                             hte_s_i.e_key = str_key; hte_s_i.e_data = value;
-                            ind = HashFunctionRowKeys(str_key);
-                            hash_table_s_i_c.insert_table(ind, hte_s_i);
+                            hash_table_s_i_c.insert_table_row(hte_s_i.e_key, hte_s_i);
                             break;
                         case 2:
                             cout << "enter key string: " << endl;
                             cin >> str_key;
-                            hash_table_s_i_c.delete_table(str_key);
+                            hash_table_s_i_c.delete_table_row(str_key);
                             break;
                         case 3:
                             cout << "enter key string: " << endl;
                             cin >> str_key;
-                            hash_table_s_i_c.find(str_key);
+                            hash_table_s_i_c.find_row(str_key);
                             break;
                         case 4:
                             hash_table_s_i_c.print_table();
@@ -473,18 +584,17 @@ int main()
                             cout << "enter value string: " << endl;
                             cin >> str_value;
                             hte_s_s.e_key = str_key; hte_s_s.e_data = str_value;
-                            ind = HashFunctionRowKeys(str_key);
-                            hash_table_s_s_c.insert_table(ind, hte_s_s);
+                            hash_table_s_s_c.insert_table_row(hte_s_s.e_key, hte_s_s);
                             break;
                         case 2:
                             cout << "enter key string: " << endl;
                             cin >> str_key;
-                            hash_table_s_s_c.delete_table(str_key);
+                            hash_table_s_s_c.delete_table_row(str_key);
                             break;
                         case 3:
                             cout << "enter key string: " << endl;
                             cin >> str_key;
-                            hash_table_s_s_c.find(str_key);
+                            hash_table_s_s_c.find_row(str_key);
                             break;
                         case 4:
                             hash_table_s_s_c.print_table();
@@ -497,23 +607,5 @@ int main()
             break;
         }
     }
-}
-
-void inserter_i_i(int& key, int& value, hashTableEntry<int, int>& hte_i_i, int& choise, int& ind, HashTable_open_hashing<int, int>& hash_table_i_i)
-{
-    cout << "enter key int: " << endl;
-    cin >> key;
-    cout << "enter value int: " << endl;
-    cin >> value;
-    hte_i_i.e_key = key; hte_i_i.e_data = value;
-    cout << "choose 1 - division or 2 - multiplication method" << endl;
-    cin >> choise;
-    if (choise == 1) {
-        ind = HashFunctionDivision(key);
-    }
-    else if (choise == 2) {
-        ind = HashFunctionMultiplication(key);
-    }
-    hash_table_i_i.insert_table(ind, hte_i_i);
 }
 
