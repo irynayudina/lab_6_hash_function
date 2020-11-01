@@ -39,24 +39,25 @@ template< class K, class D>
 struct hashTableEntry {
     K e_key;
     D e_data;
-    hashTableEntry() {
+   /* hashTableEntry() {
         
     }
     hashTableEntry(K key, D data) {
         this->key = key;
         this->data = data;
-    }
+    }*/
     hashTableEntry<K, D>& operator=(const hashTableEntry<K, D>& other) {
         this->e_data = other.e_data;
         this->e_key = other.e_key;
         return *this;
     }
+    template< class K, class D>
     friend ostream& operator<<(ostream& os, const hashTableEntry<K, D>& dt);
 };
 template< class K, class D>
 ostream& operator<<(ostream& os, const hashTableEntry<K, D>& dt)
 {
-    os << "key: " << dt.key << " " << "value: " << dt.data;
+    os << "key: " << dt.e_key << " " << "value: " << dt.e_data;
     return os;
 }
 template< class K, class D>
@@ -84,27 +85,27 @@ public:
         lists[HashFunctionRowKeys(k)].createnode(d);
     }
     void delete_table(int k) {
-        if (K == int) {
+        /*if (K == int) {
             cout << "ok" << endl;
-        }
+        }*/
     }
     void delete_table_division(K k) {
         //HashFunctionDivision(k);
-        if (K == int) {
+        /*if (K == int) {
             cout << "ok" << endl;
-        }
+        }*/
     }
     void delete_table_multiplication(K k) {
         //HashFunctionMultiplication(k);
-        if (K == int) {
+        /*if (K == int) {
             cout << "ok" << endl;
-        }
+        }*/
     }
     void delete_table_row(K k) {
         //HashFunctionRowKeys(k);
-        if (K == int) {
+        /*if (K == int) {
             cout << "ok" << endl;
-        }
+        }*/
     }
     List<hashTableEntry<K, D>> find(int k) {
         return lists[k];
@@ -119,7 +120,9 @@ public:
         return lists[HashFunctionRowKeys(k)];
     }
     void print_table() {
-
+        for (int i = 0; i < T_S; i++) {
+            lists[i].display();
+        }
     }
     // hash functions//////////////////////////////////////////////////////////////////////////////////////////////////
     friend int HashFunctionMultiplication(int k);
@@ -143,33 +146,33 @@ public:
          table[HashFunctionDivision(k)] = d;
      }
      void insert_table_multiplication(K k, hashTableEntry<K, D> d) {
-         table[ashFunctionMultiplication(k)] = d;
+         table[HashFunctionMultiplication(k)] = d;
      }
      void insert_table_row(K k, hashTableEntry<K, D> d) {
          table[HashFunctionRowKeys(k)] = d;
      }
      void delete_table(int k) {
-         if (K == int) {
+         /*if (K == int) {
              cout << "ok" << endl;
-         }
+         }*/
      }
      void delete_table_division(K k) {
          //HashFunctionDivision(k);
-         if (K == int) {
+         /*if (K == int) {
              cout << "ok" << endl;
-         }
+         }*/
      }
      void delete_table_multiplication(K k) {
          //HashFunctionMultiplication(k);
-         if (K == int) {
+         /*if (K == int) {
              cout << "ok" << endl;
-         }
+         }*/
      }
      void delete_table_row(K k) {
          //HashFunctionRowKeys(k);
-         if (K == int) {
+         /*if (K == int) {
              cout << "ok" << endl;
-         }
+         }*/
      }
      hashTableEntry<K, D> find(int k) {
          return table[k];

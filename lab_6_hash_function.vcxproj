@@ -141,6 +141,9 @@
   <ItemGroup>
     <ClCompile Include="lab_6_hash_function.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\laboratory2\List.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
