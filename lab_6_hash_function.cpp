@@ -39,18 +39,23 @@ template< class K, class D>
 struct hashTableEntry {
     K e_key;
     D e_data;
-   /* hashTableEntry() {
+    hashTableEntry() {
         
     }
     hashTableEntry(K key, D data) {
         this->key = key;
         this->data = data;
-    }*/
+    }
     hashTableEntry<K, D>& operator=(const hashTableEntry<K, D>& other) {
         this->e_data = other.e_data;
         this->e_key = other.e_key;
         return *this;
     }
+    bool operator ==(const hashTableEntry<K, D>& one) {
+        if ((this->e_key == one.e_key && this->e_data == one.e_data) || (this == NULL && one == NULL)) { return true; }
+        return false;
+    }
+    
     template< class K, class D>
     friend ostream& operator<<(ostream& os, const hashTableEntry<K, D>& dt);
 };
@@ -138,18 +143,63 @@ public:
      HashTable_closed_hashing(int size = 33) {
      T_S = size;
      table = new  hashTableEntry<K, D>[T_S];
+     for (int i = 0; i < T_S; i++) {
+         table[i].e_key = -1;
+     }
      }
      void insert_table(int k, hashTableEntry<K, D> d) {
          table[k] = d;
      }
      void insert_table_division(K k, hashTableEntry<K, D> d) {
-         table[HashFunctionDivision(k)] = d;
+         int formed_key = HashFunctionDivision(k);
+         for (int i = formed_key; i < T_S + formed_key; i++) {
+             int j = i;
+             (j >= T_S) ? j = i - T_S : j = i;
+             if (table[j] == NULL)
+             {
+                 table[j] = d;
+                 break;
+             }
+             else if (HashFunctionDivision(table[j].e_key) == 0 && table[j].e_data = NULL) {
+                 table[j] = d;
+                 break;
+             }
+             
+         }
      }
      void insert_table_multiplication(K k, hashTableEntry<K, D> d) {
-         table[HashFunctionMultiplication(k)] = d;
+         int formed_key = HashFunctionMultiplication(k);
+         for (int i = formed_key; i < T_S + formed_key; i++) {
+             int j = i;
+             (j >= T_S) ? j = i - T_S : j = i;
+             if (table[j].e_key == -1)
+             {
+                 table[j] = d;
+                 break;
+             }
+             else if ((HashFunctionMultiplication(table[j].e_key) == 0 )&& (table[j].e_data == NULL)) {
+                 table[j] = d;
+                 break;
+             }
+             
+         }
      }
      void insert_table_row(K k, hashTableEntry<K, D> d) {
-         table[HashFunctionRowKeys(k)] = d;
+         int formed_key = HashFunctionRowKeys(k);
+         for (int i = formed_key; i < T_S + formed_key; i++) {
+             int j = i;
+             (j >= T_S) ? j = i - T_S : j = i;
+             if (table[j] == NULL)//.e_key == NULL && table[j].e_data
+             {
+                 table[j] = d;
+                 break;
+             }
+             else if ((HashFunctionRowKeys(table[j].e_key) == 0) && (table[j].e_data == 0)) {
+                 table[j] = d;
+                 break;
+             }
+            
+         }
      }
      void delete_table(int k) {
          /*if (K == int) {
@@ -157,7 +207,7 @@ public:
          }*/
      }
      void delete_table_division(K k) {
-         //HashFunctionDivision(k);
+         //HashFunctionDivision(k); set data to null and key to 0
          /*if (K == int) {
              cout << "ok" << endl;
          }*/
@@ -178,16 +228,45 @@ public:
          return table[k];
      }
      hashTableEntry<K, D> find_division(K k) {
-         return table[HashFunctionDivision(k)];
+         int formed_key = HashFunctionDivision(k);
+         for (int i = formed_key; i < T_S + formed_key; i++) {
+             int j = i;
+             (j >= T_S) ? j = i - T_S : j = i;
+             if (table[j].e_key == k) {
+                 return table[j];
+                 break;
+             }
+             
+         }
      }
      hashTableEntry<K, D> find_multiplication(K k) {
-         return table[HashFunctionMultiplication(k)];
+         int formed_key = HashFunctionMultiplication(k);
+         for (int i = formed_key; i < T_S + formed_key; i++) {
+             int j = i;
+             (j >= T_S) ? j = i - T_S : j = i;
+             if (table[j].e_key == k) {
+                 return table[j];
+                 break;
+             }
+             
+         }
      }
      hashTableEntry<K, D> find_row(K k) {
-         return table[HashFunctionRowKeys(k)];
+         int formed_key = HashFunctionRowKeys(k);
+         for (int i = formed_key; i < T_S + formed_key; i++) {
+             int j = i;
+             (j >= T_S) ? j = i - T_S : j = i;
+             if (table[j].e_key == k) {
+                 return table[j];
+                 break;
+             }
+             
+         }
      }
      void print_table() {
-
+         for (int i = 0; i < T_S; i++) {
+             cout << table[i];
+         }
      }
     // hash functions//////////////////////////////////////////////////////////////////////////////////////////////////
     friend int HashFunctionMultiplication(int k);
@@ -195,7 +274,6 @@ public:
     friend int HashFunctionRowKeys(string ch);
 };
 
-void inserter_i_i(int& key, int& value, hashTableEntry<int, int>& hte_i_i, int& choise, int& ind, HashTable_open_hashing<int, int>& hash_table_i_i);
 
 int main()
 {
